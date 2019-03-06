@@ -35,7 +35,7 @@ img {
   top: 0;
   left: 0;
   right: 0;
-  background-color: transparent;
+  background-color: rgba(255,255,255,.5);
 }
 
 .header-inner {
@@ -45,7 +45,7 @@ img {
 }
 
 .logo {
-  width: 80px;
+  width: 50px;
 }
 
 .logo img {
