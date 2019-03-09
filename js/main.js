@@ -3,7 +3,7 @@ import FixedHeader from './modules/fixed';
 // init
 document.addEventListener('DOMContentLoaded', function() {
 	let fixedHeader = new FixedHeader({
-        simpleMode: true,
+        simpleMode: false,
         target: '.header'
     });
 });

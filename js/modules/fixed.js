@@ -1,7 +1,7 @@
 function FixedHeader(options) {
-    this.simpleMode = options.simpleMode || true;
+    this.simpleMode = options.simpleMode || false;
     this.offset = options.offset || 0;
-    this.onlyToTop = options.onlyToTop || false;
+    this.onlyToTop = options.onlyToTop || true;
     this.target = document.querySelector(options.target) || document.querySelector('.fixed-block');
     this.fixedClass = options.fixedClass || 'fixed';
     this.wrapClass = options.wrapClass || 'fixed-wrapper';
@@ -29,14 +29,6 @@ function FixedHeader(options) {
         elem.style.height = `${targetHeight}px`;
     }
 
-    function addClass() {
-        self.target.classList.add(self.fixedClass);
-    }
-
-    function removeClass() {
-        self.target.classList.remove(self.fixedClass);
-    }
-
     function toggleFixedClass() {
         if (window.pageYOffset === 0) {
             self.target.classList.remove(self.fixedClass);
@@ -53,20 +45,40 @@ function FixedHeader(options) {
 
     if (this.simpleMode) {
         this.onlyToTop = false;
-        toggleFixedClass();
+        self.target.classList.add(self.fixedClass);
+        // toggleFixedClass();
 
-        window.addEventListener('scroll', () => {
-            scrolling = 1;
-        });
+        // window.addEventListener('scroll', () => {
+        //     scrolling = 1;
+        // });
 
-        setInterval(function() {
-            if (scrolling) {
-                scrolling = 0;
-                toggleFixedClass();
-            }
-        }, 20);
+        // setInterval(function() {
+        //     if (scrolling) {
+        //         scrolling = 0;
+        //         toggleFixedClass();
+        //     }
+        // }, 1);
     }
 
+    if (this.onlyToTop) {
+        self.target.classList.add(self.fixedClass);
+        let windowHeight = window.innerHeight;
+        let offset = 0;
+
+        window.addEventListener('scroll', () => {
+            if (pageYOffset > windowHeight) {
+                let top = window.pageYOffset;
+                if (top < offset) {
+                    self.target.classList.remove('hide');
+                } else if (top > offset) {
+                    self.target.classList.add('hide');
+                }
+                offset = top;
+            } else {
+                self.target.classList.remove('hide');
+            }
+        });
+    }
 }
 
 export default FixedHeader;
